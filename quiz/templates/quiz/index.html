@@ -1,0 +1,23 @@
+{% extends "quiz/layout.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block body %}
+
+<div class="mt-5 text-center">
+    <h1 class="mb-5">Welcome to Vocabulary Building application</h1>
+    
+    <p class="mt-5 lead mb-3">If you have an account with us, we can save up your lerning process.<br>
+        If you just want to play a game for now, please proceed with play with guest.</p>
+   {% if user.is_authenticated %}
+        <a href="{% url 'game' %}" class="btn btn-secondary btn-lg" role="button" aria-disabled="true">Play</a>
+   {% else %} 
+   <a href="{% url 'login' %}" class="btn btn-primary btn-lg" role="button" aria-disabled="true">Log in</a>
+   <a href="{% url 'game' %}" class="btn btn-secondary btn-lg" role="button" aria-disabled="true">Play as Guest</a>
+   {% endif %}
+</div>
+{% endblock %}
+
+
+

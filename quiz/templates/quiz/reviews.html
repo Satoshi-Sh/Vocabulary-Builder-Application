@@ -1,0 +1,45 @@
+{% extends "quiz/layout.html" %}
+{% load humanize %}
+{% load static %}
+{% block body %}
+<h1 class="lead display-3">Words to Review</h1>
+{% for page_object in pg_objects %}
+    <div class="page" id ="page_{{page_object.number}}" style="display:none;" >
+    {% for word in page_object %}
+    <div class="card mb-3 mt-2">
+        <div class="card-footer text-left">
+           <div class="row">
+              <div class="text-left col-3">
+              Times: {{word.times}} 
+              </div>
+              <div class="col-6"></div>
+              <div class="text-right  col-3">
+              {{ word.updated_at| naturaltime }}
+              </div>
+           </div>
+        </div>
+        <div class="card-body text-center">
+          <h3 class="card-title text-center">{{ word.word }}</h5>
+          <p class="card-text">{{ word.definition }}</p>
+          <button class="reviewed btn btn-outline-info" >Reviewed</a>
+        </div>
+      </div>
+      {% empty %}
+      <h3 class="text-center mt-5 lead display-5">No words to review</h3>    
+    {% endfor %}
+    <div class="load-sectino text-center mb-4">
+    {% if page_object.has_next %}
+    <button class="load btn btn-outline-info">Load More</button>
+    </div>
+    {% endif %}
+    </div>
+{% endfor %}
+{% endblock %}
+
+
+{% block script %} 
+<script src="{% static 'quiz/reviews.js' %}"></script>
+
+{% endblock %}
+
+
